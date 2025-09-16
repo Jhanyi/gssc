@@ -1,4 +1,6 @@
 import argparse
+import os.path
+
 import mne
 import numpy as np
 from os import path
@@ -10,6 +12,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("file", type=str)
     parser.add_argument("--out_form", type=str, default="csv")
+    parser.add_argument("--out_loc", type=str, default=None)  # for hpc use (permission problem, need to output to different loc)
     parser.add_argument("--cut_from", type=str, default="back")
     parser.add_argument("--use_cuda", default=True)
     parser.add_argument("--use_cpu", dest="use_cuda", action="store_false")
@@ -47,6 +50,10 @@ def main():
 
     filepath, filename = path.split(opt["file"])
     fileroot, fileext = path.splitext(filename)
+    if opt["out_loc"] is not None:  # default is loc of edf. need to specify otherwise
+        # check path exists
+        assert os.path.exists(path.abspath(opt["out_loc"])), "invalid path name"
+        filepath = path.abspath(opt["out_loc"])
     output_stages(stages, times, probs, opt["out_form"], filepath, fileroot)
     
     if opt["graph"]:
