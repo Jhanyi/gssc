@@ -13,6 +13,8 @@ import time
 
 torch.backends.cudnn.benchmark = True
 
+torch.serialization.add_safe_globals([ResSleep])
+
 t = datetime.datetime.fromtimestamp(time.time())
 time_str = t.strftime("%H:%M:%S on %d.%m.%y")
 print("Started on {}.".format(time_str))
