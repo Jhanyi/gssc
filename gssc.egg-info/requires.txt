@@ -1,5 +1,0 @@
-mne
-torch
-importlib-resources
-pandas
-matplotlib

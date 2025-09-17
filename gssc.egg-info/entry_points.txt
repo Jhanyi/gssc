@@ -1,3 +1,0 @@
-[console_scripts]
-gssc_gui = gssc.command.gui:main
-gssc_infer = gssc.command.com_infer:main
